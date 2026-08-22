@@ -1,10 +1,5 @@
-# MAYH3M OS 9.0 — Full Replacement Code
-
-
-
-
+```html
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -12,1267 +7,704 @@
 <title>MAYH3M OS 9.0</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
-:root{
-  --bg:#071018;
-  --panel:#101d29;
-  --panel2:#162838;
-  --text:#ffffff;
-  --muted:#9eb2c4;
-  --accent:#00d9ff;
-  --accent2:#7c4dff;
-  --danger:#ff4d5a;
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: #111;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
 }
 
-body{
-  margin:0;
-  background:#000;
-  color:var(--text);
-  font-family:Arial,Helvetica,sans-serif;
-  overflow:hidden;
+/* ===== NEW 3DS XL CONSOLE ===== */
+
+.console {
+    width: min(96vw, 1000px);
+    padding: 28px;
 }
 
-#os{
-  width:100vw;
-  height:100vh;
-  background:
-    radial-gradient(circle at top, #123047 0%, var(--bg) 55%);
-  position:relative;
-  overflow:hidden;
+/* ===== TOP HALF ===== */
+
+.top-shell {
+    background: linear-gradient(145deg, #252525, #0c0c0c);
+    border-radius: 28px 28px 14px 14px;
+    padding: 32px 48px 42px;
+    border: 4px solid #333;
+    box-shadow:
+        inset 0 2px 3px #555,
+        0 15px 35px rgba(0,0,0,.7);
 }
 
-/* STATUS */
-
-.status{
-  height:48px;
-  padding:10px 16px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background:rgba(0,0,0,.25);
-  border-bottom:1px solid rgba(255,255,255,.08);
-  font-size:14px;
+.top-camera {
+    width: 12px;
+    height: 12px;
+    background: #050505;
+    border: 2px solid #444;
+    border-radius: 50%;
+    margin: 0 auto 14px;
 }
 
-.status button{
-  border:0;
-  background:none;
-  color:white;
-  font-size:18px;
+.top-screen-frame {
+    background: #050505;
+    border: 7px solid #151515;
+    border-radius: 12px;
+    padding: 6px;
 }
 
-/* TOP */
-
-.top-content{
-  text-align:center;
-  padding:18px 15px 10px;
+.top-screen {
+    aspect-ratio: 5 / 3;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background:
+        radial-gradient(circle at 20% 20%, #008cff55, transparent 35%),
+        radial-gradient(circle at 80% 70%, #00e5ff44, transparent 30%),
+        linear-gradient(135deg, #07111c, #10283b, #061018);
+    display: flex;
+    flex-direction: column;
 }
 
-#topIcon{
-  font-size:42px;
-  filter:drop-shadow(0 0 15px var(--accent));
+.top-status {
+    height: 52px;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0,0,0,.35);
+    border-bottom: 1px solid #ffffff22;
+    font-size: clamp(11px, 2vw, 18px);
 }
 
-#topTitle{
-  margin:4px 0 0;
-  font-size:24px;
-  letter-spacing:2px;
+.logo {
+    font-weight: 900;
+    letter-spacing: 3px;
+    color: #7eeaff;
+    text-shadow: 0 0 10px #00c8ff;
 }
 
-#topSub{
-  color:var(--accent);
-  font-size:13px;
-  letter-spacing:3px;
-  margin-top:4px;
+.status-right {
+    display: flex;
+    gap: 16px;
+    color: #dcefff;
 }
 
-#topInfo{
-  color:var(--muted);
-  margin:8px 0 0;
-  font-size:12px;
+.top-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 25px;
 }
 
-/* SCREENS */
-
-.screen{
-  display:none;
-  height:calc(100vh - 150px);
-  overflow-y:auto;
-  padding:15px;
-  padding-bottom:90px;
+.os-title {
+    font-size: clamp(32px, 7vw, 78px);
+    font-weight: 900;
+    letter-spacing: 5px;
+    margin: 0;
+    text-shadow: 0 0 20px #00d9ff;
 }
 
-.screen.active{
-  display:block;
+.os-subtitle {
+    margin-top: 14px;
+    font-size: clamp(12px, 2vw, 22px);
+    color: #b9eaff;
+    letter-spacing: 2px;
 }
 
-.title{
-  text-align:center;
-  font-weight:bold;
-  font-size:21px;
-  letter-spacing:2px;
-  margin-bottom:16px;
+/* ===== HINGE ===== */
+
+.hinge {
+    height: 42px;
+    width: 82%;
+    margin: auto;
+    background: linear-gradient(#333, #111, #333);
+    border-left: 4px solid #444;
+    border-right: 4px solid #444;
+    box-shadow: 0 8px 14px rgba(0,0,0,.7);
 }
 
-/* HOME */
+/* ===== BOTTOM HALF ===== */
 
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(110px,1fr));
-  gap:12px;
-  max-width:900px;
-  margin:auto;
+.bottom-shell {
+    position: relative;
+    min-height: 650px;
+    background: linear-gradient(145deg, #292929, #101010);
+    border-radius: 14px 14px 32px 32px;
+    border: 4px solid #333;
+    padding: 34px;
+    display: grid;
+    grid-template-columns: 150px minmax(0, 1fr) 150px;
+    gap: 25px;
+    box-shadow:
+        inset 0 2px 3px #555,
+        0 20px 40px rgba(0,0,0,.8);
 }
 
-.app{
-  background:linear-gradient(145deg,var(--panel2),var(--panel));
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:20px;
-  padding:18px 8px;
-  text-align:center;
-  cursor:pointer;
-  transition:.15s transform,.15s border;
+/* ===== LEFT CONTROLS ===== */
+
+.left-controls,
+.right-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.app:hover,
-.app.selected{
-  transform:scale(1.04);
-  border-color:var(--accent);
-  box-shadow:0 0 20px rgba(0,217,255,.18);
+.circle-pad {
+    width: 105px;
+    height: 105px;
+    border-radius: 50%;
+    margin-top: 10px;
+    background:
+        repeating-radial-gradient(circle, #555 0 2px, #333 3px 6px);
+    border: 8px solid #1b1b1b;
+    box-shadow:
+        inset 0 0 15px #000,
+        0 5px 10px #000;
 }
 
-.app-icon{
-  font-size:38px;
-  margin-bottom:8px;
+.dpad {
+    width: 105px;
+    height: 105px;
+    position: relative;
+    margin-top: 65px;
 }
 
-.app-name{
-  font-size:12px;
-  font-weight:bold;
+.dpad::before,
+.dpad::after {
+    content: "";
+    position: absolute;
+    background: linear-gradient(#333, #111);
+    border: 2px solid #555;
+    border-radius: 8px;
+    box-shadow: 0 3px 5px #000;
 }
 
-.page{
-  text-align:center;
-  color:var(--muted);
-  margin-top:15px;
+.dpad::before {
+    width: 38px;
+    height: 105px;
+    left: 33px;
 }
 
-/* GENERAL */
-
-.card,
-.reward-box,
-.assistant-box{
-  background:rgba(16,29,41,.92);
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:18px;
-  padding:16px;
-  margin:12px auto;
-  max-width:760px;
+.dpad::after {
+    width: 105px;
+    height: 38px;
+    top: 33px;
 }
 
-button,
-input{
-  font:inherit;
+/* ===== BOTTOM SCREEN ===== */
+
+.bottom-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.action,
-.back{
-  width:100%;
-  max-width:760px;
-  margin:8px auto;
-  display:block;
-  padding:13px;
-  border-radius:14px;
-  border:1px solid rgba(255,255,255,.1);
-  color:white;
-  background:var(--panel2);
-  cursor:pointer;
+.bottom-screen-frame {
+    width: 100%;
+    max-width: 560px;
+    background: #050505;
+    border: 9px solid #171717;
+    border-radius: 12px;
+    padding: 5px;
+    box-shadow: inset 0 0 15px #000;
 }
 
-.action:hover{
-  border-color:var(--accent);
+.bottom-screen {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background: linear-gradient(145deg, #06131e, #0b2435);
+    overflow: hidden;
+    position: relative;
 }
 
-.back{
-  background:#0b141d;
-  color:var(--muted);
+/* ===== MAYH3M GAME LIBRARY ===== */
+
+.library-header {
+    height: 18%;
+    min-height: 55px;
+    padding: 10px 18px;
+    background: rgba(0,0,0,.4);
+    border-bottom: 1px solid #53dfff55;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-input{
-  width:100%;
-  padding:13px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,.1);
-  background:#081119;
-  color:white;
+.library-title {
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #79e8ff;
+    font-size: clamp(11px, 2vw, 19px);
 }
 
-/* GAME LIBRARY */
-
-.game-toolbar{
-  display:flex;
-  gap:8px;
-  max-width:900px;
-  margin:0 auto 14px;
+.game-count {
+    font-size: clamp(9px, 1.5vw, 14px);
+    color: #b8d8e5;
 }
 
-.game-toolbar button{
-  flex:1;
+.games {
+    height: 72%;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    padding: 14px;
 }
 
-.game-status{
-  max-width:900px;
-  margin:0 auto 14px;
-  color:var(--muted);
-  text-align:center;
-  font-size:13px;
+.game {
+    border: 1px solid #42caff66;
+    border-radius: 8px;
+    min-height: 70px;
+    background:
+        linear-gradient(145deg, #17384c, #07131d);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 6px;
+    transition: .15s;
 }
 
-.game-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
-  gap:14px;
-  max-width:900px;
-  margin:auto;
+.game:active {
+    transform: scale(.95);
+    background: #145777;
 }
 
-.game-card{
-  min-height:190px;
-  background:linear-gradient(145deg,#162838,#0b141d);
-  border:1px solid rgba(255,255,255,.09);
-  border-radius:18px;
-  padding:12px;
-  cursor:pointer;
-  position:relative;
-  overflow:hidden;
+.game-icon {
+    font-size: clamp(20px, 4vw, 38px);
 }
 
-.game-card:hover,
-.game-card.selected{
-  border-color:var(--accent);
-  box-shadow:0 0 20px rgba(0,217,255,.2);
+.game-name {
+    font-size: clamp(7px, 1.2vw, 12px);
+    margin-top: 5px;
+    text-align: center;
+    word-break: break-word;
 }
 
-.game-icon{
-  height:105px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:58px;
-  border-radius:13px;
-  background:#09131c;
-  overflow:hidden;
+.library-footer {
+    height: 10%;
+    min-height: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    background: rgba(0,0,0,.4);
+    border-top: 1px solid #ffffff18;
+    font-size: clamp(8px, 1.2vw, 12px);
+    color: #9ac9d8;
 }
 
-.game-icon img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
+/* ===== RIGHT CONTROLS ===== */
+
+.c-stick {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    margin-top: 5px;
+    background: repeating-radial-gradient(circle, #555 0 2px, #222 3px 5px);
+    border: 6px solid #181818;
 }
 
-.game-name{
-  margin-top:10px;
-  font-size:13px;
-  font-weight:bold;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+.abxy {
+    width: 120px;
+    height: 120px;
+    position: relative;
+    margin-top: 45px;
 }
 
-.game-id{
-  margin-top:4px;
-  color:var(--muted);
-  font-size:9px;
+.button {
+    position: absolute;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 2px solid #555;
+    background: radial-gradient(circle at 30% 25%, #555, #111 65%);
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    box-shadow: 0 4px 6px #000;
+    cursor: pointer;
 }
 
-.empty-library{
-  max-width:650px;
-  margin:40px auto;
-  text-align:center;
-  color:var(--muted);
+.button:active {
+    transform: translateY(2px);
 }
 
-/* WORLD */
+.btn-y { left: 0; top: 37px; }
+.btn-x { left: 37px; top: 0; }
+.btn-a { right: 0; top: 37px; }
+.btn-b { left: 37px; bottom: 0; }
 
-.world-hero{
-  text-align:center;
+.small-buttons {
+    margin-top: 55px;
+    display: flex;
+    gap: 16px;
 }
 
-.world-globe{
-  font-size:80px;
+.small-button {
+    width: 65px;
+    height: 25px;
+    border-radius: 12px;
+    background: #161616;
+    border: 2px solid #444;
+    color: #aaa;
+    font-size: 9px;
 }
 
-/* PANELS */
+/* ===== HOME BUTTON ===== */
 
-.panel{
-  display:none;
-  position:absolute;
-  right:15px;
-  top:55px;
-  width:min(360px,90vw);
-  max-height:70vh;
-  overflow:auto;
-  padding:18px;
-  border-radius:20px;
-  background:#101d29;
-  border:1px solid rgba(255,255,255,.1);
-  z-index:20;
+.home-button {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 35px;
+    border-radius: 18px;
+    background: linear-gradient(#333, #111);
+    border: 2px solid #555;
+    color: #ddd;
+    font-size: 10px;
+    cursor: pointer;
 }
 
-.panel.show{
-  display:block;
-}
+/* ===== MOBILE ===== */
 
-/* SPLASH */
+@media (max-width: 700px) {
+    .console {
+        width: 100vw;
+        padding: 8px;
+    }
 
-#splash{
-  display:none;
-  position:absolute;
-  inset:0;
-  z-index:100;
-  background:#03080d;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-}
+    .top-shell {
+        padding: 15px 18px 20px;
+    }
 
-#splash.show{
-  display:flex;
-}
+    .hinge {
+        height: 24px;
+    }
 
-.splash-icon{
-  font-size:80px;
-  filter:drop-shadow(0 0 20px var(--accent));
-}
+    .bottom-shell {
+        min-height: 520px;
+        padding: 16px 8px 55px;
+        grid-template-columns: 65px minmax(0, 1fr) 65px;
+        gap: 5px;
+    }
 
-.splash-title{
-  margin-top:15px;
-  font-size:25px;
-  letter-spacing:2px;
-}
+    .circle-pad {
+        width: 58px;
+        height: 58px;
+        border-width: 5px;
+    }
 
-/* BOTTOM CONTROLS */
+    .dpad {
+        transform: scale(.6);
+        margin-top: 15px;
+    }
 
-.controls{
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:0;
-  height:78px;
-  background:rgba(0,0,0,.45);
-  border-top:1px solid rgba(255,255,255,.08);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:10px 18px;
-}
+    .c-stick {
+        width: 38px;
+        height: 38px;
+    }
 
-.ctrl{
-  min-width:50px;
-  min-height:42px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,.12);
-  background:#101d29;
-  color:white;
-  margin:2px;
-}
+    .abxy {
+        transform: scale(.55);
+        margin-top: 0;
+    }
 
-.round{
-  width:50px;
-  height:50px;
-  border-radius:50%;
-  border:1px solid rgba(255,255,255,.15);
-  background:var(--panel2);
-  color:white;
-}
+    .small-buttons {
+        margin-top: -5px;
+        transform: scale(.7);
+    }
 
-.start{
-  padding:9px 18px;
-  border-radius:20px;
-  border:1px solid rgba(255,255,255,.12);
-  background:#101d29;
-  color:white;
-}
+    .games {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 5px;
+        padding: 7px;
+    }
 
-/* SCROLLBAR */
-
-::-webkit-scrollbar{
-  width:7px;
-}
-
-::-webkit-scrollbar-thumb{
-  background:#244055;
-  border-radius:10px;
+    .game {
+        min-height: 52px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div id="os">
+<div class="console">
 
-  <!-- STATUS -->
+    <!-- TOP SCREEN -->
+    <section class="top-shell">
 
-  <div class="status">
-    <span>
-      <span id="wifi">📶</span>
-      <span id="battery">🔋 100%</span>
-      <span>🪙 <span id="coinStatus">0</span></span>
-    </span>
+        <div class="top-camera"></div>
 
-    <span>
-      <button onclick="toggleNotes()">🔔</button>
-      <span id="noteCount">0</span>
-      <span id="clock">--:--</span>
-    </span>
-  </div>
+        <div class="top-screen-frame">
+            <div class="top-screen">
 
-  <!-- TOP -->
+                <div class="top-status">
+                    <div class="logo">⚡ ELECTRIC MAYH3M</div>
 
-  <div class="top-content" id="topNormal">
-    <div id="topIcon">⚡</div>
-    <h1 id="topTitle">ELECTRIC MAYH3M</h1>
-    <div id="topSub">MAYH3M OS 9.0</div>
-    <p id="topInfo">CONNECTED WORLD</p>
-  </div>
+                    <div class="status-right">
+                        <span>📶</span>
+                        <span id="clock">--:--</span>
+                        <span>🔋 100%</span>
+                    </div>
+                </div>
 
-  <!-- HOME -->
+                <div class="top-content">
+                    <div>
+                        <h1 class="os-title">MAYH3M OS</h1>
+                        <div class="os-subtitle">
+                            NEW NINTENDO 3DS XL EDITION
+                        </div>
+                    </div>
+                </div>
 
-  <div class="screen active" id="home">
-    <div class="title">HOME MENU</div>
-    <div class="grid" id="homeGrid"></div>
-    <div class="page" id="pageText">● ○ ○</div>
-  </div>
+            </div>
+        </div>
 
-  <!-- GAMES -->
+    </section>
 
-  <div class="screen" id="games">
-    <div class="title">🎮 GAME LIBRARY</div>
+    <!-- HINGE -->
+    <div class="hinge"></div>
 
-    <div class="game-toolbar">
-      <button class="action" onclick="refreshGameLibrary()">↻ REFRESH LIBRARY</button>
-    </div>
+    <!-- BOTTOM HALF -->
+    <section class="bottom-shell">
 
-    <div class="game-status" id="gameStatus">
-      Ready to scan installed games.
-    </div>
+        <!-- LEFT CONTROLS -->
+        <div class="left-controls">
 
-    <div id="gameList"></div>
+            <div class="circle-pad"></div>
 
-    <button class="back" onclick="home()">← HOME</button>
-  </div>
+            <div class="dpad"></div>
 
-  <!-- WORLD -->
+        </div>
 
-  <div class="screen" id="world">
-    <div class="title">🌎 MAYH3M WORLD</div>
+        <!-- BOTTOM SCREEN -->
+        <div class="bottom-center">
 
-    <div class="world-hero">
-      <div class="world-globe">🌎⚡</div>
-      <h2>CONNECTED WORLD</h2>
-      <p id="worldGreeting">Welcome to MAYH3M WORLD.</p>
-      <p>Players: <b id="worldPlayers">1</b></p>
-    </div>
+            <div class="bottom-screen-frame">
 
-    <button class="action" onclick="openWorldTab('friends')">👥 FRIENDS</button>
-    <button class="action" onclick="openWorldTab('pass')">📡 MAYH3M PASS</button>
-    <button class="action" onclick="openWorldTab('events')">🎯 EVENTS</button>
+                <div class="bottom-screen">
 
-    <button class="back" onclick="home()">← HOME</button>
-  </div>
+                    <div class="library-header">
+                        <div class="library-title">
+                            🎮 GAME LIBRARY
+                        </div>
 
-  <!-- FRIENDS -->
+                        <div class="game-count" id="gameCount">
+                            0 GAMES
+                        </div>
+                    </div>
 
-  <div class="screen" id="friends">
-    <div class="title">👥 MAYH3M FRIENDS</div>
+                    <div class="games" id="games">
 
-    <div id="friendList"></div>
+                        <!-- Games appear here -->
 
-    <div class="card">
-      <input id="friendNameInput" placeholder="Friend name">
-      <button class="action" onclick="addFriend()">ADD FRIEND</button>
-    </div>
+                    </div>
 
-    <button class="back" onclick="openScreen('world')">← WORLD</button>
-  </div>
+                    <div class="library-footer">
+                        <span>◀ SELECT</span>
+                        <span>MAYH3M OS 9.0</span>
+                        <span>START ▶</span>
+                    </div>
 
-  <!-- NEWS -->
+                </div>
 
-  <div class="screen" id="news">
-    <div class="title">📰 MAYH3M NEWS</div>
-    <div class="card">⚡ Welcome to MAYH3M OS 9.0.</div>
-    <button class="back" onclick="home()">← HOME</button>
-  </div>
+            </div>
 
-  <!-- REWARDS -->
+        </div>
 
-  <div class="screen" id="rewards">
-    <div class="title">🎁 DAILY REWARDS</div>
+        <!-- RIGHT CONTROLS -->
+        <div class="right-controls">
 
-    <div class="reward-box">
-      <div style="font-size:80px">🎁⚡</div>
-      <h2 id="rewardStatus">Daily reward ready!</h2>
-      <p id="rewardInfo">Claim XP and coins.</p>
-      <button class="action" id="claimButton" onclick="claimDailyReward()">CLAIM REWARD</button>
-    </div>
+            <div class="c-stick"></div>
 
-    <button class="back" onclick="home()">← HOME</button>
-  </div>
+            <div class="abxy">
+                <button class="button btn-y">Y</button>
+                <button class="button btn-x">X</button>
+                <button class="button btn-a">A</button>
+                <button class="button btn-b">B</button>
+            </div>
 
-  <!-- PROFILE -->
+            <div class="small-buttons">
+                <button class="small-button">SELECT</button>
+                <button class="small-button">START</button>
+            </div>
 
-  <div class="screen" id="profile">
-    <div class="title">PLAYER PROFILE</div>
+        </div>
 
-    <div class="card" style="text-align:center">
-      <div style="font-size:70px">⚡</div>
-      <h2 id="profileName">Player</h2>
-      <h3 id="profileLevel">LEVEL 1</h3>
-      <p id="profileXP">0 XP</p>
-      <p>🪙 <span id="profileCoins">0</span> coins</p>
-    </div>
+        <button class="home-button" onclick="goHome()">
+            HOME
+        </button>
 
-    <button class="back" onclick="home()">← HOME</button>
-  </div>
-
-  <!-- ASSISTANT -->
-
-  <div class="screen" id="assistant">
-    <div class="title">🤖 MAYH3M ASSISTANT</div>
-
-    <div class="assistant-box" id="assistantOutput">
-      ⚡ Hello! I'm your MAYH3M Assistant.
-      <br><br>
-      Try saying:
-      <br>
-      • Open Games
-      <br>
-      • Open World
-      <br>
-      • Open Settings
-    </div>
-
-    <input id="assistantInput"
-           placeholder="Ask MAYH3M Assistant..."
-           onkeydown="if(event.key==='Enter')askAssistant()">
-
-    <button class="action" onclick="askAssistant()">ASK</button>
-    <button class="back" onclick="home()">← HOME</button>
-  </div>
-
-  <!-- MESSAGES -->
-
-  <div class="screen" id="messages">
-    <div class="title">💬 MESSAGES</div>
-
-    <div id="messageList"></div>
-
-    <input id="messageInput"
-           placeholder="Type a message..."
-           onkeydown="if(event.key==='Enter')sendMessage()">
-
-    <button class="action" onclick="sendMessage()">SEND</button>
-    <button class="back" onclick="home()">← HOME</button>
-  </div>
-
-  <!-- MUSIC -->
-
-  <div class="screen" id="music">
-    <div class="title">🎵 MAYH3M MUSIC</div>
-
-    <div style="font-size:100px;text-align:center">⚡🎵</div>
-
-    <div class="card" style="text-align:center">
-      <b id="songName">Electric MAYH3M Theme</b>
-      <p id="musicStatus">Ready</p>
-
-      <button class="action" onclick="toggleMusic()">▶ PLAY</button>
-    </div>
-
-    <button class="back" onclick="home()">← HOME</button>
-  </div>
-
-  <!-- STORE -->
-
-  <div class="screen" id="store">
-    <div class="title">🛍️ MAYH3M APP STORE</div>
-
-    <div class="card">
-      <h3>MAYH3M APPS</h3>
-      <p>More apps coming soon.</p>
-    </div>
-
-    <button class="back" onclick="home()">← HOME</button>
-  </div>
-
-  <!-- SETTINGS -->
-
-  <div class="screen" id="settings">
-    <div class="title">⚙️ SETTINGS</div>
-
-    <div class="card">
-      Brightness
-      <input type="range"
-             min="40"
-             max="100"
-             value="100"
-             oninput="setBrightness(this.value)">
-    </div>
-
-    <button class="action" onclick="changeTheme()">🎨 CHANGE THEME</button>
-    <button class="action" onclick="toggleWifi()">📶 WI-FI</button>
-
-    <button class="back" onclick="home()">← HOME</button>
-  </div>
-
-  <!-- QUICK SETTINGS -->
-
-  <div class="panel" id="quick">
-    <h2>QUICK SETTINGS</h2>
-    <button class="action" onclick="toggleWifi()">📶 WI-FI</button>
-    <button class="action" onclick="changeTheme()">🎨 THEME</button>
-    <button class="action" onclick="openPower()">⏻ POWER</button>
-    <button class="action" onclick="toggleQuick()">CLOSE</button>
-  </div>
-
-  <!-- NOTIFICATIONS -->
-
-  <div class="panel" id="notesPanel">
-    <h2>NOTIFICATIONS</h2>
-    <div id="notesList">No new notifications.</div>
-    <button class="action" onclick="toggleNotes()">CLOSE</button>
-  </div>
-
-  <!-- SPLASH -->
-
-  <div id="splash">
-    <div>
-      <div class="splash-icon" id="splashIcon">⚡</div>
-      <div class="splash-title" id="splashTitle">MAYH3M OS</div>
-    </div>
-  </div>
-
-  <!-- CONTROLS -->
-
-  <div class="controls">
-
-    <div>
-      <button class="ctrl" onclick="move('left')">◀</button>
-      <button class="ctrl" onclick="move('up')">▲</button>
-      <button class="ctrl" onclick="move('down')">▼</button>
-      <button class="ctrl" onclick="move('right')">▶</button>
-    </div>
-
-    <div>
-      <button class="round" onclick="back()">B</button>
-      <button class="round" onclick="pressA()">A</button>
-      <button class="start" onclick="toggleQuick()">START</button>
-    </div>
-
-  </div>
+    </section>
 
 </div>
 
 <script>
 
-/* =========================
-   MAYH3M OS CORE
-========================= */
+/* ===== CLOCK ===== */
 
-const apps = [
-  {name:"Games",icon:"🎮",screen:"games"},
-  {name:"World",icon:"🌎",screen:"world"},
-  {name:"Friends",icon:"👥",screen:"friends"},
-  {name:"News",icon:"📰",screen:"news"},
-  {name:"Rewards",icon:"🎁",screen:"rewards"},
-  {name:"Profile",icon:"⚡",screen:"profile"},
-  {name:"Assistant",icon:"🤖",screen:"assistant"},
-  {name:"Messages",icon:"💬",screen:"messages"},
-  {name:"Music",icon:"🎵",screen:"music"},
-  {name:"App Store",icon:"🛍️",screen:"store"},
-  {name:"Settings",icon:"⚙️",screen:"settings"}
-];
+function updateClock() {
+    const now = new Date();
 
-let selectedIndex = 0;
-let currentScreen = "home";
-let wifiOn = true;
-let darkTheme = true;
-let coins = 0;
-let xp = 0;
-let friends = [];
-let messages = [];
-let installedGames = [];
-
-/* HOME */
-
-function buildHome(){
-  const grid = document.getElementById("homeGrid");
-
-  grid.innerHTML = "";
-
-  apps.forEach((app,index)=>{
-    const item = document.createElement("div");
-
-    item.className = "app" + (index === selectedIndex ? " selected" : "");
-
-    item.innerHTML = `
-      <div class="app-icon">${app.icon}</div>
-      <div class="app-name">${app.name}</div>
-    `;
-
-    item.onclick = ()=>{
-      selectedIndex = index;
-      showSplash(app.name,app.icon,()=>{
-        openScreen(app.screen);
-      });
-    };
-
-    grid.appendChild(item);
-  });
+    document.getElementById("clock").textContent =
+        now.toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit"
+        });
 }
 
-/* SCREEN SYSTEM */
+updateClock();
+setInterval(updateClock, 1000);
 
-function openScreen(id){
 
-  document.querySelectorAll(".screen").forEach(screen=>{
-    screen.classList.remove("active");
-  });
+/* =====================================================
+   GAME LIBRARY
+   =====================================================
 
-  const screen = document.getElementById(id);
+   The HTML preview cannot directly read the games installed
+   on your real Nintendo 3DS.
 
-  if(screen){
-    screen.classList.add("active");
-    currentScreen = id;
-  }
+   When this interface is later packaged as a real 3DS
+   homebrew application, the game-reading code can provide
+   the installed title list to this interface.
 
-  if(id === "games"){
-    loadGameLibrary();
-  }
-
-  if(id === "friends"){
-    renderFriends();
-  }
-
-  if(id === "messages"){
-    renderMessages();
-  }
-}
-
-function home(){
-  openScreen("home");
-}
-
-function back(){
-
-  if(currentScreen !== "home"){
-    home();
-  }else{
-    toggleQuick();
-  }
-}
-
-function pressA(){
-
-  if(currentScreen === "home"){
-    const app = apps[selectedIndex];
-
-    showSplash(app.name,app.icon,()=>{
-      openScreen(app.screen);
-    });
-  }
-}
-
-function move(direction){
-
-  if(currentScreen !== "home") return;
-
-  if(direction === "right"){
-    selectedIndex = Math.min(selectedIndex + 1,apps.length - 1);
-  }
-
-  if(direction === "left"){
-    selectedIndex = Math.max(selectedIndex - 1,0);
-  }
-
-  if(direction === "up"){
-    selectedIndex = Math.max(selectedIndex - 4,0);
-  }
-
-  if(direction === "down"){
-    selectedIndex = Math.min(selectedIndex + 4,apps.length - 1);
-  }
-
-  buildHome();
-}
-
-/* SPLASH */
-
-function showSplash(title,icon,callback){
-
-  document.getElementById("splashTitle").textContent = title;
-  document.getElementById("splashIcon").textContent = icon;
-
-  const splash = document.getElementById("splash");
-
-  splash.classList.add("show");
-
-  setTimeout(()=>{
-    splash.classList.remove("show");
-
-    if(callback) callback();
-
-  },700);
-}
-
-/* =========================
-   REAL 3DS GAME LIBRARY BRIDGE
-========================= */
-
-/*
-The native 3DS application should expose:
-
-window.MAYH3M.getInstalledGames()
-
-and return an array shaped like:
-
-[
-  {
-    titleId: "0004000000030800",
-    name: "Example Game",
-    icon: "data:image/png;base64,..."
-  }
-]
-
-The HTML interface never guesses the installed games.
-It asks the native 3DS side.
+   For the web version, updateGameLibrary() receives the
+   game list and automatically builds the full library.
 */
 
-async function getInstalledGamesFrom3DS(){
 
-  if(
-    window.MAYH3M &&
-    typeof window.MAYH3M.getInstalledGames === "function"
-  ){
+function updateGameLibrary(gameList) {
 
-    const games = await window.MAYH3M.getInstalledGames();
+    const games = document.getElementById("games");
 
-    return Array.isArray(games) ? games : [];
-  }
+    games.innerHTML = "";
 
-  return [];
-}
+    gameList.forEach((game) => {
 
-async function loadGameLibrary(){
+        const card = document.createElement("div");
 
-  document.getElementById("gameStatus").textContent =
-    "Scanning installed games...";
+        card.className = "game";
 
-  installedGames = await getInstalledGamesFrom3DS();
+        card.innerHTML = `
+            <div class="game-icon">
+                ${game.icon || "🎮"}
+            </div>
 
-  renderGameLibrary();
-}
+            <div class="game-name">
+                ${game.name}
+            </div>
+        `;
 
-async function refreshGameLibrary(){
+        card.onclick = function() {
+            launchGame(game);
+        };
 
-  document.getElementById("gameStatus").textContent =
-    "Refreshing library...";
+        games.appendChild(card);
 
-  if(
-    window.MAYH3M &&
-    typeof window.MAYH3M.refreshInstalledGames === "function"
-  ){
-    await window.MAYH3M.refreshInstalledGames();
-  }
-
-  installedGames = await getInstalledGamesFrom3DS();
-
-  renderGameLibrary();
-}
-
-function renderGameLibrary(){
-
-  const list = document.getElementById("gameList");
-
-  if(!installedGames.length){
-
-    list.innerHTML = `
-      <div class="empty-library">
-        <div style="font-size:70px">🎮</div>
-        <h2>NO GAME DATA YET</h2>
-        <p>
-          The MAYH3M OS Game Library is waiting for
-          the native 3DS title scanner.
-        </p>
-        <p>
-          Press REFRESH LIBRARY after the 3DS bridge is connected.
-        </p>
-      </div>
-    `;
-
-    document.getElementById("gameStatus").textContent =
-      "0 installed games found.";
-
-    return;
-  }
-
-  document.getElementById("gameStatus").textContent =
-    `${installedGames.length} installed game${installedGames.length === 1 ? "" : "s"} found`;
-
-  const grid = document.createElement("div");
-
-  grid.className = "game-grid";
-
-  installedGames.forEach((game,index)=>{
-
-    const card = document.createElement("div");
-
-    card.className = "game-card";
-
-    const icon = game.icon
-      ? `<img src="${game.icon}" alt="">`
-      : "🎮";
-
-    card.innerHTML = `
-      <div class="game-icon">${icon}</div>
-      <div class="game-name">
-        ${escapeHTML(game.name || "Unknown Title")}
-      </div>
-      <div class="game-id">
-        ${escapeHTML(game.titleId || "Unknown ID")}
-      </div>
-    `;
-
-    card.onclick = ()=>{
-      launchInstalledGame(game,index);
-    };
-
-    grid.appendChild(card);
-  });
-
-  list.innerHTML = "";
-
-  list.appendChild(grid);
-}
-
-async function launchInstalledGame(game){
-
-  if(
-    window.MAYH3M &&
-    typeof window.MAYH3M.launchTitle === "function"
-  ){
-
-    document.getElementById("gameStatus").textContent =
-      `Launching ${game.name || "game"}...`;
-
-    await window.MAYH3M.launchTitle(game.titleId);
-
-  }else{
-
-    document.getElementById("gameStatus").textContent =
-      "Game launching requires the native 3DS bridge.";
-  }
-}
-
-function escapeHTML(value){
-
-  return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-}
-
-/* =========================
-   FRIENDS
-========================= */
-
-function addFriend(){
-
-  const input =
-    document.getElementById("friendNameInput");
-
-  const name = input.value.trim();
-
-  if(!name) return;
-
-  friends.push(name);
-
-  input.value = "";
-
-  renderFriends();
-}
-
-function renderFriends(){
-
-  const list =
-    document.getElementById("friendList");
-
-  if(!friends.length){
-
-    list.innerHTML =
-      `<div class="card">No friends added yet.</div>`;
-
-    return;
-  }
-
-  list.innerHTML =
-    friends.map(name=>
-      `<div class="card">👤 ${escapeHTML(name)}</div>`
-    ).join("");
-}
-
-/* =========================
-   MESSAGES
-========================= */
-
-function sendMessage(){
-
-  const input =
-    document.getElementById("messageInput");
-
-  const text = input.value.trim();
-
-  if(!text) return;
-
-  messages.push(text);
-
-  input.value = "";
-
-  renderMessages();
-}
-
-function renderMessages(){
-
-  const list =
-    document.getElementById("messageList");
-
-  if(!messages.length){
-
-    list.innerHTML =
-      `<div class="card">No messages yet.</div>`;
-
-    return;
-  }
-
-  list.innerHTML =
-    messages.map(message=>
-      `<div class="card">💬 ${escapeHTML(message)}</div>`
-    ).join("");
-}
-
-/* =========================
-   ASSISTANT
-========================= */
-
-function askAssistant(){
-
-  const input =
-    document.getElementById("assistantInput");
-
-  const text =
-    input.value.trim().toLowerCase();
-
-  if(!text) return;
-
-  let answer =
-    "⚡ I am not sure yet, but I'm learning.";
-
-  if(text.includes("game")){
-    answer =
-      "🎮 Opening your Game Library.";
-    openScreen("games");
-  }
-
-  else if(text.includes("world")){
-    answer =
-      "🌎 Opening MAYH3M World.";
-    openScreen("world");
-  }
-
-  else if(text.includes("setting")){
-    answer =
-      "⚙️ Opening Settings.";
-    openScreen("settings");
-  }
-
-  else if(text.includes("coin")){
-    answer =
-      `🪙 You currently have ${coins} coins.`;
-  }
-
-  else if(text.includes("xp")){
-    answer =
-      `⚡ You currently have ${xp} XP.`;
-  }
-
-  document.getElementById("assistantOutput").innerHTML =
-    escapeHTML(answer).replaceAll("\n","<br>");
-
-  input.value = "";
-}
-
-/* =========================
-   REWARDS
-========================= */
-
-function claimDailyReward(){
-
-  coins += 10;
-  xp += 25;
-
-  updateStats();
-
-  document.getElementById("rewardStatus").textContent =
-    "Reward claimed!";
-
-  document.getElementById("rewardInfo").textContent =
-    "+10 coins and +25 XP";
-
-  document.getElementById("claimButton").disabled = true;
-}
-
-function updateStats(){
-
-  document.getElementById("coinStatus").textContent = coins;
-  document.getElementById("profileCoins").textContent = coins;
-  document.getElementById("profileXP").textContent = `${xp} XP`;
-}
-
-/* =========================
-   WORLD
-========================= */
-
-function openWorldTab(tab){
-
-  if(tab === "friends"){
-    openScreen("friends");
-  }
-
-  if(tab === "pass"){
-    alert("MAYH3M PASS scanner coming soon.");
-  }
-
-  if(tab === "events"){
-    alert("MAYH3M EVENTS coming soon.");
-  }
-}
-
-/* =========================
-   MUSIC
-========================= */
-
-let musicPlaying = false;
-
-function toggleMusic(){
-
-  musicPlaying = !musicPlaying;
-
-  document.getElementById("musicStatus").textContent =
-    musicPlaying ? "Playing" : "Paused";
-}
-
-/* =========================
-   SETTINGS
-========================= */
-
-function toggleWifi(){
-
-  wifiOn = !wifiOn;
-
-  document.getElementById("wifi").textContent =
-    wifiOn ? "📶" : "📵";
-}
-
-function changeTheme(){
-
-  darkTheme = !darkTheme;
-
-  if(darkTheme){
-
-    document.documentElement.style.setProperty("--bg","#071018");
-    document.documentElement.style.setProperty("--panel","#101d29");
-    document.documentElement.style.setProperty("--panel2","#162838");
-
-  }else{
-
-    document.documentElement.style.setProperty("--bg","#dceeff");
-    document.documentElement.style.setProperty("--panel","#ffffff");
-    document.documentElement.style.setProperty("--panel2","#d3e7f7");
-  }
-}
-
-function setBrightness(value){
-
-  document.getElementById("os").style.filter =
-    `brightness(${value}%)`;
-}
-
-/* =========================
-   PANELS
-========================= */
-
-function toggleQuick(){
-
-  document
-    .getElementById("quick")
-    .classList.toggle("show");
-}
-
-function toggleNotes(){
-
-  document
-    .getElementById("notesPanel")
-    .classList.toggle("show");
-}
-
-function openPower(){
-
-  if(confirm("Shut down MAYH3M OS?")){
-
-    document.body.innerHTML =
-      `<div style="
-        height:100vh;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        background:#000;
-        color:white;
-        font-family:Arial;
-        font-size:28px;
-        text-align:center;
-      ">
-        ⚡<br>MAYH3M OS<br><small>POWERED OFF</small>
-      </div>`;
-  }
-}
-
-/* CLOCK */
-
-function updateClock(){
-
-  const now = new Date();
-
-  document.getElementById("clock").textContent =
-    now.toLocaleTimeString([],{
-      hour:"2-digit",
-      minute:"2-digit"
     });
+
+    document.getElementById("gameCount").textContent =
+        gameList.length +
+        (gameList.length === 1 ? " GAME" : " GAMES");
 }
 
-setInterval(updateClock,1000);
-updateClock();
 
-/* START */
+/* ===== GAME LAUNCH PLACEHOLDER ===== */
 
-buildHome();
+function launchGame(game) {
+
+    alert(
+        "Launching " + game.name +
+        "\n\nMAYH3M OS would send this title to the 3DS launcher."
+    );
+
+}
+
+
+/* ===== HOME BUTTON ===== */
+
+function goHome() {
+
+    alert("MAYH3M OS HOME");
+
+}
+
+
+/* =====================================================
+   TEST DATA
+
+   Remove this test data when the real 3DS application
+   connects its installed-title reader.
+
+   The interface will then display whatever titles are
+   actually installed on that 3DS.
+   ===================================================== */
+
+const installedGames = [
+
+    {
+        name: "Mario Kart 7",
+        icon: "🏎️"
+    },
+
+    {
+        name: "Minecraft",
+        icon: "⛏️"
+    },
+
+    {
+        name: "Super Smash Bros.",
+        icon: "💥"
+    },
+
+    {
+        name: "Animal Crossing",
+        icon: "🏝️"
+    },
+
+    {
+        name: "Pokémon",
+        icon: "⚡"
+    },
+
+    {
+        name: "3DS Camera",
+        icon: "📷"
+    },
+
+    {
+        name: "Nintendo eShop",
+        icon: "🛍️"
+    },
+
+    {
+        name: "System Settings",
+        icon: "⚙️"
+    }
+
+];
+
+
+/* Build the library */
+
+updateGameLibrary(installedGames);
 
 </script>
 
 </body>
 </html>
+```
